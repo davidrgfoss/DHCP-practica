@@ -1,0 +1,8 @@
+- name: Reiniciar DHCP
+  service: name=isc-dhcp-server state=restarted
+
+- name: Reiniciar sysctl
+  ansible.builtin.shell: sysctl --system
+
+- name: Reiniciar maquina
+  reboot:

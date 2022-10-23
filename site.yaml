@@ -1,0 +1,14 @@
+- hosts: all
+  become: true
+  roles:
+   - commons
+
+- hosts: router
+  become: true
+  roles:
+   - router
+
+- hosts: router
+  become: true
+  roles:
+   - dhcp

@@ -1,0 +1,13 @@
+- name: "Instalar Apache2"
+  apt:
+    name: apache2
+
+- name: Copiar plantilla de pagina web
+  template: 
+    src: index.j2
+    dest: /var/www/html/index.html
+    owner: www-data
+    group: www-data
+    mode: 0644
+  notify:
+    - restart apache2

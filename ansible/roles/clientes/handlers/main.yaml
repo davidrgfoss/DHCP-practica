@@ -1,0 +1,7 @@
+- name: Cargar nueva configuracion de red1
+  service:
+    name: network
+    state: restarted
+
+- name: Cargar nueva configuracion de red
+  reboot:

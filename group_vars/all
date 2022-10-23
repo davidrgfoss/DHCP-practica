@@ -1,0 +1,21 @@
+Networks:
+   router:
+      Interfaz: 'eth1'
+      IP: '10.0.0.1'
+      subred: '255.255.255.0'
+      Origen: '10.0.0.0/24'
+      dns: '192.168.202.2'
+
+DHCP:
+   Ambito1:
+      subnet: '10.0.0.0'
+      netmask: '255.255.255.0'
+      range: '10.0.0.20 10.0.0.70;'
+      gateway: '10.0.0.1;'
+      broadcast: '10.0.0.255;'
+      dns: '8.8.8.8, 192.168.202.2;'
+      default: '43200;'
+      max: '43200;'
+
+web_server: 10.0.0.2
+web_server_mac: 52:54:00:26:43:dc

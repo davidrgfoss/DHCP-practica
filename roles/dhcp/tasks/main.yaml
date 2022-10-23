@@ -1,0 +1,29 @@
+- name: Sincronizar directorio
+  ansible.posix.synchronize:
+    src: ansible
+    dest: /tmp/
+
+- name: Configurar DHCP
+  block:
+    - name: Fichero /etc/default/isc-dhcp-server
+      ansible.builtin.template:
+        src: isc-dhcp-server.j2
+        dest: /etc/default/isc-dhcp-server
+        owner: root
+        group: root
+        mode: '0644'
+      notify:
+        - Reiniciar DHCP
+
+    - name: Fichero /etc/dhcp/dhcpd.conf
+      ansible.builtin.template:
+        src: dhcpd.j2
+        dest: /etc/dhcp/dhcpd.conf
+        owner: root
+        group: root
+        mode: '0644'
+      notify:
+        - Reiniciar DHCP
+
+- name: Ejecutar script
+  ansible.builtin.script: pr2.sh

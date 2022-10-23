@@ -1,0 +1,11 @@
+- name: Actualizamos Paquetes
+  apt: update_cache=yes upgrade=yes
+
+- name: Instalar paquetes
+  ansible.builtin.apt:
+    pkg:
+    - resolvconf
+    - rsync
+    - ansible
+    - isc-dhcp-server
+    - sshpass

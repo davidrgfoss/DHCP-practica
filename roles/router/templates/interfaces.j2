@@ -1,0 +1,29 @@
+source-directory /etc/network/interfaces.d
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto eth0
+iface eth0 inet dhcp
+
+{% for f in Networks %}
+{% if f == ansible_hostname %}
+auto {{Networks[f].Interfaz}}
+iface {{Networks[f].Interfaz}} inet static
+	address {{Networks[f].IP}}
+	netmask {{Networks[f].subred}}
+	post-up ip r add {{Networks[f].Origen}} via {{web_server}} dev $IFACE || true
+{% endif %}
+{% endfor %}
+
+
+{% for f in Networks %}
+{% if f == ansible_hostname %}
+up iptables -t nat -A POSTROUTING -o eth0 -s {{Networks[f].Origen}} -j MASQUERADE
+down iptables -t nat -d POSTROUTING -o eth0 -s {{Networks[f].Origen}} -j MASQUERADE
+up iptables -t nat -A PREROUTING -p tcp --dport 80 -i eth0 -j DNAT --to {{web_server}}
+down iptables -t nat -D PREROUTING -p tcp --dport 80 -i eth0 -j DNAT --to {{web_server}}
+{% endif %}
+{% endfor %}

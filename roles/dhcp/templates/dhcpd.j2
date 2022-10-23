@@ -1,0 +1,16 @@
+{% for x in DHCP -%}
+subnet {{DHCP[x].subnet}} netmask {{DHCP[x].netmask}} {
+	range {{DHCP[x].range}}
+	option routers {{DHCP[x].gateway}}
+	option broadcast-address {{DHCP[x].broadcast}}
+	option domain-name-servers {{DHCP[x].dns}}
+	default-lease-time {{DHCP[x].default}}
+	max-lease-time {{DHCP[x].max}}
+}
+
+{% endfor %}
+
+host web-server {
+	hardware ethernet {{web_server_mac}};
+	fixed-address {{web_server}};
+}
