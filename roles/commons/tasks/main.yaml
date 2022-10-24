@@ -7,5 +7,4 @@
     - resolvconf
     - rsync
     - ansible
-    - isc-dhcp-server
     - sshpass

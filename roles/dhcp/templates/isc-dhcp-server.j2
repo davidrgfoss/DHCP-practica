@@ -1,4 +1,4 @@
 DHCPDv4_CONF=/etc/dhcp/dhcpd.conf
 DHCPDv4_PID=/var/run/dhcpd.pid
-INTERFACESv4="{% for x in Networks %}{% if x == ansible_hostname %}{{Networks[x].Interfaz}} {% endif %}{% endfor %}"
+INTERFACESv4="{% for x in Networks %}{% if x == ansible_hostname %}{{Networks[x].Interfaz}}{% endif %}{% endfor %}"
 

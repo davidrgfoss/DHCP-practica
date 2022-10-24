@@ -18,4 +18,7 @@ DHCP:
       max: '43200;'
 
 web_server: 10.0.0.2
-web_server_mac: 52:54:00:26:43:dc
+web_server_mac: '52:54:00:CD:EA:05'
+bd_name: wordpress_bd
+bd_user: wordpress_user
+bd_pass: asdasd

@@ -12,3 +12,13 @@
   become: true
   roles:
    - dhcp
+
+- hosts: cliente1
+  become: true
+  roles:
+   - web
+
+- hosts: clientes
+  become: true
+  roles:
+   - clientes

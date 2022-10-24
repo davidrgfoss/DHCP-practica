@@ -6,7 +6,7 @@ if [ -f /home/davidrg/.ssh/id_rsa ]
 then
 	sleep 1
 else
-	su davidrg -s ssh-keygen -t rsa -N "" -f /home/davidrg/.ssh/id_rsa
+	echo "1" | su davidrg -c 'ssh-keygen -t rsa -N "" -f /home/davidrg/.ssh/id_rsa'
 fi
 
 echo "1" | sudo -S dhcp-lease-list --parsable | cut -d " " -f 4,6 | tr -t "  " "\n" > /tmp/pr1; chmod 777 /tmp/pr1; touch /tmp/use; sudo chmod 777 /tmp/use; touch /tmp/pr2; chmod 777 /tmp/pr2; touch /tmp/machine; chmod 777 /tmp/machine; chmod -R 777 /tmp/ansible/; chown davidrg:davidrg /home/davidrg/.ssh/id_rsa*
@@ -29,7 +29,6 @@ done < /tmp/pr1
 
 sshpass -p 1 ssh-copy-id davidrg@10.0.0.2
 echo "1" | ssh -tt davidrg@10.0.0.2 "sudo cp -Rf /etc/sudoers /tmp/sudoers; sudo chmod 777 /tmp/sudoers; echo -e '\ndavidrg ALL=(ALL) NOPASSWD: ALL' >> /tmp/sudoers; sudo chmod 440 /tmp/sudoers; sudo cp -Rf /tmp/sudoers /etc/sudoers"
-done < /tmp/pr2
 
 while read x;
 do
@@ -57,5 +56,5 @@ done
 rm -Rf /tmp/pr*
 rm -Rf /tmp/machine
 
-ansible-playbook /tmp/ansible/site.yaml
+ansible-playbook /tmp/ansible/site.yaml -i /tmp/ansible/hosts
 
